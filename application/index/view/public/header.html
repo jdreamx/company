@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {//$site_name是在公共控制器Base的初始化操作中创建,可以在所有页面中直接使用}
+    <title>{$title|default="$title"}_{$site->site_name}</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/index/css/index.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.js"></script>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-inverse">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">企业官网</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li {if(null==$Think.get.cate_id)} class="active" {/if} ><a href="/">首页</a></li>
+                {volist name="cates" id = 'cate'}
+                <li {if($cate->cate_id==$Think.get.cate_id)} class="active" {/if}>
+                    <a href="{:url('article/getRes')}?cate_id={$cate->cate_id}" >{$cate.cate_name}</a>
+                </li>
+                {/volist}
+                <!--<li><a href="#">公司新闻</a></li>-->
+                <!--<li><a href="#">公司产品</a></li>-->
+                <!--<li><a href="#">关于我们</a></li>-->
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>

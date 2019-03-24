@@ -1,0 +1,51 @@
+{include file="common@header" /}
+<body class="login-bg">
+
+<div class="login layui-anim layui-anim-up">
+    <div class="message">企业网站后台管理系统</div>
+    <div id="darkbannerwrap"></div>
+
+    <form method="post" class="layui-form" >
+        <input name="email" placeholder="邮箱"  type="email" lay-verify="required" class="layui-input" id="L_email" autofocus="">
+        <hr class="hr15">
+        <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input" id="L_pass">
+        <hr class="hr15">
+        <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="button" onclick="do_login()">
+        <hr class="hr20" >
+    </form>
+</div>
+
+<script>
+   function do_login() {
+       let email = $('#L_email').val();
+       let password = $('#L_pass').val();
+       if(email == ''||password == ''){
+           return;
+       };
+       $.post(
+           "{:url('user/doLogin')}",
+           {'email': email, 'password': password},
+           function(data){
+               if(data.status == 0){
+                   // 验证成功，跳转首页
+                   layer.msg(data.msg, function () {
+                       location.href = '{:url("index/index")}'
+                   })
+               }
+               //验证失败，跳转到登录页
+               layer.msg(data.msg, function () {
+                   return false;
+                   // location.href = '{:url("user/login")}';
+               })
+           },'json'
+       );
+   }
+
+
+</script>
+
+
+<!-- 底部结束 -->
+
+</body>
+</html>

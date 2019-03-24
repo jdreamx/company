@@ -1,0 +1,26 @@
+<div class="col-md-4">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">最新资讯</h3>
+        </div>
+        <div class="panel-body" style="margin-bottom: -20px;">
+            <div class="list-group">
+
+                {volist name="latest_art" id="art"}
+
+                <a href="{:url('article/getres')}?cate_id={$art.cate_id}&art_id={$art.art_id}"
+
+                   class="list-group-item" style="border:none;">
+
+                    {//文档标题仅截取前面的25个中文字符}
+                    {:mb_substr($art.art_title,0,10,'utf8')}  {//文档的标题}
+
+                    {//文档发布时间的格式使用模板预置函数处理}
+                    <span style="float: right">{$art.create_time|date='Y-m-d'}</span>
+                </a>
+                {/volist}
+            </div>
+        </div>
+    </div>
+
+</div>
